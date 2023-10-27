@@ -1,52 +1,9 @@
-Ce fichier décrit chaque fonction du contrat "Voting" et explique comment elles sont utilisées.
+Augustin Beeuwsaert Grp BUT-S5 L
 
-registerVoter(address _voterAddress)
+Le code complet est disponible sur le github.
 
-Description : Cette fonction permet à l'administrateur d'inscrire un électeur en utilisant son adresse Ethereum.
-Variable requise : _voterAddress - L'adresse Ethereum de l'électeur à inscrire.
-Ordre d'utilisation : Vous pouvez appeler cette fonction pour inscrire un électeur avant de démarrer la session d'enregistrement des propositions.
-startProposalsRegistration(uint _blocksToClose)
+Au niveaux de l'ajoue de nouvelle fonctionaliter, j'ai rajouter une fonction (hasVoterVoted) qui permet à quiconque de vérifier si un électeur spécifique a déjà voté en fournissant l'adresse de l'électeur en question. Elle renvoie true si l'électeur a déjà voté et false s'il n'a pas encore voté ou s'il n'est pas enregistré. J'ai également rajouter une fonction (resetVoterStatus) peut être appelée par le propriétaire du contrat pour réinitialiser le statut de vote d'un électeur en particulier. Elle est utile si vous souhaitez permettre au propriétaire du contrat de corriger d'éventuelles erreurs ou abus liés au statut de vote des électeurs.
 
-Description : Cette fonction démarre la session d'enregistrement des propositions avec une limite de temps définie en blocs.
-Variable requise : _blocksToClose - Le nombre de blocs à attendre avant de clôturer la session d'enregistrement.
-Ordre d'utilisation : Appelez cette fonction après avoir inscrit tous les électeurs.
-endProposalsRegistrationIfTimeExpired()
+Le lien vers le front de remix - etherum IDE : https://youtu.be/nut_Vq32jfY
 
-Description : Cette fonction clôture la session d'enregistrement des propositions si la limite de temps en blocs est écoulée.
-Variable requise : Aucune variable requise.
-Ordre d'utilisation : Appelez cette fonction pour vérifier si la session d'enregistrement doit être clôturée en raison de la limite de temps.
-registerProposal(string memory _description)
 
-Description : Cette fonction permet à un électeur inscrit d'enregistrer une proposition.
-Variable requise : _description - La description de la proposition.
-Ordre d'utilisation : Les électeurs peuvent appeler cette fonction pendant la session d'enregistrement des propositions.
-startVotingSession(uint _blocksToClose)
-
-Description : Cette fonction démarre la session de vote avec une limite de temps définie en blocs.
-Variable requise : _blocksToClose - Le nombre de blocs à attendre avant de clôturer la session de vote.
-Ordre d'utilisation : Appelez cette fonction après avoir clôturé la session d'enregistrement des propositions.
-endVotingSessionIfTimeExpired()
-
-Description : Cette fonction clôture la session de vote si la limite de temps en blocs est écoulée.
-Variable requise : Aucune variable requise.
-Ordre d'utilisation : Appelez cette fonction pour vérifier si la session de vote doit être clôturée en raison de la limite de temps.
-vote(uint _proposalId)
-
-Description : Cette fonction permet à un électeur inscrit de voter pour une proposition.
-Variable requise : _proposalId - L'ID de la proposition pour laquelle voter.
-Ordre d'utilisation : Les électeurs peuvent appeler cette fonction pendant la session de vote.
-closeVotingSession()
-
-Description : Cette fonction clôture la session de vote et détermine la proposition gagnante.
-Variable requise : Aucune variable requise.
-Ordre d'utilisation : Appelez cette fonction après la session de vote pour déterminer le gagnant.
-getWinner()
-
-Description : Cette fonction renvoie l'ID de la proposition gagnante.
-Variable requise : Aucune variable requise.
-Ordre d'utilisation : Vous pouvez appeler cette fonction pour obtenir l'ID de la proposition gagnante après avoir clôturé la session de vote.
-voteAgainst(uint _proposalId)
-
-Description : Cette fonction permet à un électeur inscrit de voter contre une proposition.
-Variable requise : _proposalId - L'ID de la proposition à voter contre.
-Ordre d'utilisation : Les électeurs peuvent appeler cette fonction pendant la session de vote.

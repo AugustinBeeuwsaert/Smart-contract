@@ -49,6 +49,22 @@ contract Voting is Ownable {
         _;
     }
 
+    // Fonction pour réinitialiser le statut de vote d'un électeur.
+function resetVoterStatus(address _voterAddress) external onlyOwner {
+    require(workflowStatus == WorkflowStatus.VotingSessionEnded || workflowStatus == WorkflowStatus.VotesTallied, "Resetting voter status is not allowed at this stage.");
+    require(voters[_voterAddress].isRegistered, "Voter is not registered.");
+    
+    voters[_voterAddress].hasVoted = false;
+    voters[_voterAddress].votedProposalId = 0;
+}
+
+
+    // Fonction pour vérifier si un électeur a déjà voté.
+function hasVoterVoted(address _voterAddress) external view returns (bool) {
+    require(voters[_voterAddress].isRegistered, "Voter is not registered.");
+    return voters[_voterAddress].hasVoted;
+}
+
     // Constructeur du contrat
     constructor() {
         workflowStatus = WorkflowStatus.RegisteringVoters;
@@ -67,15 +83,13 @@ contract Voting is Ownable {
         emit WorkflowStatusChange(WorkflowStatus.RegisteringVoters, WorkflowStatus.ProposalsRegistrationStarted);
     }
 
-// Fonction pour enregistrer une proposition avec une adresse spécifique
-function registerProposal(string memory _description, address _proposer) public isRegisteredVoter atState(WorkflowStatus.ProposalsRegistrationStarted) {
-    proposals.push(Proposal({
-        description: _description,
-        voteCount: 0,
-        proposer: _proposer  // Utilise l'adresse spécifiée comme identifiant
-    }));
-    //emit ProposalRegistered(proposals.length - 1);
-}
+// Fonction pour enregistrer une proposition.
+    function registerProposal(string memory _description) external {
+        require(workflowStatus == WorkflowStatus.ProposalsRegistrationStarted, "Proposals registration is not allowed at this stage.");
+        uint proposalId = proposals.length;
+        proposals.push(Proposal(_description, 0, msg.sender));
+        emit ProposalRegistered(proposalId);
+    }
     // Fonction pour clôturer la session d'enregistrement des propositions
     function endProposalsRegistration() public onlyOwner atState(WorkflowStatus.ProposalsRegistrationStarted) {
         workflowStatus = WorkflowStatus.ProposalsRegistrationEnded;
