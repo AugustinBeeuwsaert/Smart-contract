@@ -1,0 +1,14 @@
+{
+  "homepage": "https://SandyLudosky.github.io/voting-system",
+  "scripts": {
+    "predeploy": "cd client && npm run build",
+    "deploy": "cd client && npm run deploy",
+    "build": "cd client && npm run build",
+    "test": "truffle test"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^3.4.1",
+    "chai": "^4.3.3",
+    "truffle-assertions": "^0.9.2"
+  }
+}

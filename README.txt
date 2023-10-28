@@ -30,4 +30,8 @@ Au niveaux de l'ajoue de nouvelle fonctionaliter, j'ai rajouter une fonction (ha
 
 Le lien vers le front de remix - etherum IDE : https://youtu.be/nut_Vq32jfY
 
+Le lien vers la Dapp js : https://youtu.be/dUnJp-ysHNI
+
+
+
 
